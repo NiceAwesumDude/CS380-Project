@@ -1,8 +1,8 @@
 //ParkingSpot class
 //CS 380
 //Liam Barr
-//version 1.0
-//Last edit 5/8/2023
+//version 1.1
+//Last edit 5/9/2023
 
 public class ParkingSpot {
    
@@ -16,9 +16,8 @@ public class ParkingSpot {
    private int timePaid;
    private int timeLeft;
    private String vehicle;
-   
-   //has both setter and getter
    private boolean occupied;
+   //when occupied is false, that means the spot is empty
    
    
    //methods
@@ -77,14 +76,6 @@ public class ParkingSpot {
    */
    public String toString() {
       return "ID: "+this.ID+" Licencse Plate: "+vehicle+" Time Paid: "+timePaid+" Time Left: "+timeLeft;
-   }
-   
-   /**
-   * Setter for occupied
-   * @param o Whether it is occupied or not
-   */
-   public void setOccupancy (boolean o) {
-      occupied = o;
    }
    
    /**
