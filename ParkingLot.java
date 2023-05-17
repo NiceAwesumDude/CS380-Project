@@ -4,22 +4,26 @@
 //version 1.0
 //last edit on 5/9/2023
 
+import java.sql.*;
+
 public class ParkingLot {
    
    //fields
    private ParkingSpot[] lot;
+   private Connection con;
    
    //methods
    
    /**
    * Creates an empty ParkingLot class
-   * Meant for initializing te program
+   * Meant for initializing the program
    */
    ParkingLot() {
       lot = new ParkingSpot[30];
       for (int i = 0; i<lot.length; i++) {
          lot[i] = new ParkingSpot(i);
       }
+      connect();
    }
    
    /**
@@ -124,5 +128,92 @@ public class ParkingLot {
          }
       }
       return s;
+   }
+   /**
+   * initialises the connection
+   */
+   private void connect(){
+		String url = "jdbc:mysql://localhost:3306";
+		String userName = "root";
+		String pass = "@1Lumlum";
+		
+		try {
+			con = DriverManager.getConnection(url, userName, pass);
+			System.out.println("connected");
+		}
+		catch (Exception e) {
+			System.out.println("exception " + e.getMessage()); 
+		}
+	}
+   
+   /**
+   * Resets the database and stores info in it
+   */
+   public void save(){
+      //dropping the old database
+      String init = "DROP DATABASE IF EXISTS parkinglot; ";
+      try{
+         Statement s = con.createStatement();
+         s.execute(init);
+      }
+      catch(Exception e){
+         System.out.println(e);
+         System.exit(0);
+      }
+      //create the new one
+      init = "CREATE DATABASE parkinglot;";
+      try{
+         Statement s = con.createStatement();
+         s.execute(init);
+      }
+      catch(Exception e){
+         System.out.println(e);
+         System.exit(0);
+      }
+      //use the db
+      init = "USE parkinglot;";
+      try{
+         Statement s = con.createStatement();
+         s.execute(init);
+      }
+      catch(Exception e){
+         System.out.println(e);
+         System.exit(0);
+      }
+      //make table
+      init = "CREATE TABLE lot ( "+
+            "id         INT         NOT NULL, "+
+            "occupied   BIT   NOT NULL, "+
+            "lplatenum  VARCHAR(7), "+
+            "timepaid   INT, "+
+            "timeleft   INT, "+
+            "CONSTRAINT lotPK "+
+            "PRIMARY KEY (id) "+
+            ");";
+      try{
+         Statement s = con.createStatement();
+         s.execute(init);
+      }
+      catch(Exception e){
+         System.out.println(e);
+         System.exit(0);
+      }
+      //add the info
+      init = "INSERT INTO lot(id, occupied, lplatenum, timepaid, timeleft) values(?,?,?,?,?)";
+      for (int i = 0; i < lot.length; i++){
+         try{
+            PreparedStatement ps = con.prepareStatement(init);
+            ps.setInt(1, i);
+            ps.setBoolean(2, lot[i].getOccupancy());
+            ps.setString(3, lot[i].getPlateNum());
+            ps.setInt(4, lot[i].getTimePaid());
+            ps.setInt(5, lot[i].getTimeLeft());
+            ps.execute();
+         }
+         catch(Exception e){
+            System.out.println(e);
+            System.exit(0);
+         }
+      }
    }
 }

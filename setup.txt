@@ -1,0 +1,3 @@
+Setup:
+
+In the ParkingLot class, in the connect method, set the username and passwords accordingly. When saving, the program should set everything up if the connect goes through.

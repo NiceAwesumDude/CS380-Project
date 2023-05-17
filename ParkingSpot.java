@@ -109,4 +109,12 @@ public class ParkingSpot {
    public String getVehicle() {
       return vehicle;
    }
+   
+   /**
+   * Returns the liscence plate number
+   * @return The liscse plate number
+   */
+   public String getPlateNum(){
+      return vehicle;
+   }
 }
