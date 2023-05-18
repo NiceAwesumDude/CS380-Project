@@ -11,8 +11,9 @@ public abstract class Vehicle{
     /**
       *
       *  Constructs a new Vehicle object with the specified license plate
+      *  @param make of the vehicle
       *  @param licensePlate the license plate of the vehicle
-      *  @param parkingSpot the parking spot of the vehicle
+      *  
       */
    public Vehicle(String make, String licensePlate){
       this.make = make;
@@ -21,7 +22,7 @@ public abstract class Vehicle{
    }
    
    /**
-    * getter for license 
+    * getter for make 
     * @return make
     */
 
