@@ -1,8 +1,8 @@
 //ParkingSpot class
 //CS 380
 //Liam Barr
-//version 1.1
-//Last edit 5/9/2023
+//version 1.2
+//Last edit 5/18/2023
 
 public class ParkingSpot {
    
@@ -15,7 +15,7 @@ public class ParkingSpot {
    //These do not have a setter, but should have a getter
    private int timePaid;
    private int timeLeft;
-   private String vehicle;
+   private Vehicle vehicle;
    private boolean occupied;
    //when occupied is false, that means the spot is empty
    
@@ -29,12 +29,11 @@ public class ParkingSpot {
    * @param time the time alloted to the vehicle
    * @param vehicle The licsence plate number of the vehicle
    */
-   ParkingSpot (int id, int time, String vehicle) {
+   ParkingSpot (int id, int time, String licensePlate) {
       this.ID = id;
       timePaid = time;
       timeLeft = time;
-      this.vehicle = vehicle;
-      if (vehicle.equals("")) {
+      if (licensePlate.isEmpty()){
          occupied = false;
       }
       else {
@@ -71,11 +70,12 @@ public class ParkingSpot {
    }
    
    /**
-   * Basic toString method
+   * Basic toString method that also uses the vehicle class toString method to get license plate info
    * @return The string
    */
    public String toString() {
-      return "ID: "+this.ID+" Licencse Plate: "+vehicle+" Time Paid: "+timePaid+" Time Left: "+timeLeft;
+      String vehicleInfo = vehicle.toString();
+      return "ID: "+ this.ID + vehicleInfo +" Time Paid: "+ timePaid +" Time Left: "+ timeLeft;
    }
    
    /**
@@ -106,15 +106,19 @@ public class ParkingSpot {
    * Returns the vehicle
    * @return The vehicle
    */
-   public String getVehicle() {
+   public Vehicle getVehicle() {
       return vehicle;
    }
    
    /**
-   * Returns the liscence plate number
-   * @return The liscse plate number
+   * Returns the license plate number
+   * @return The license plate number
    */
    public String getPlateNum(){
-      return vehicle;
+      if(vehicle != null){
+         return vehicle.getLicensePlate();
+      }else{
+         return "Error";
+      }
    }
 }
