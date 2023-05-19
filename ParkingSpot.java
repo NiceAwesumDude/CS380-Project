@@ -73,10 +73,14 @@ public class ParkingSpot {
    * Basic toString method that also uses the vehicle class toString method to get license plate info
    * @return The string
    */
-   public String toString() {
-      String vehicleInfo = vehicle.toString();
-      return "ID: "+ this.ID + vehicleInfo +" Time Paid: "+ timePaid +" Time Left: "+ timeLeft;
-   }
+  public String toString() {
+      if (vehicle == null) {
+         return "No Vehicle";
+      } else {
+         String vehicleInfo = vehicle.toString();
+         return "ID: " + this.ID + vehicleInfo + " Time Paid: " + timePaid + " Time Left: " + timeLeft;
+      }
+   } 
    
    /**
    * Getter for occupied
