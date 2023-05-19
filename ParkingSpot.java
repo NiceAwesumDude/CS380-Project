@@ -1,6 +1,6 @@
 //ParkingSpot class
 //CS 380
-//Liam Barr
+//Liam Barr, Jesus Rodriguez
 //version 1.2
 //Last edit 5/18/2023
 
