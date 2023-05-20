@@ -36,7 +36,10 @@ public class ParkingLotGUI extends JFrame {
 	private JButton adjustButton;
 	private JButton saveButton;
 	private JButton loadButton;
-
+	
+	final int LOT_SIZE = 30;
+	final ParkingLot lot = new ParkingLot();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -225,36 +228,114 @@ public class ParkingLotGUI extends JFrame {
 		
 		addCarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Gather string fields
+				String sID = addCarIDField.getText();
+				int id = Integer.parseInt(sID);
+				String sTimePaid = addCarTPField.getText();
+				int timePaid = Integer.parseInt(sTimePaid);
+				String lic = addCarLicenseField.getText();
+				
+				// Check that entries are valid
+				boolean idTest = id > 0 && id <= LOT_SIZE;
+				boolean timeTest = timePaid > 0;
+				boolean licTest = lic.length() > 0 && lic.length() <= 7;
+				
+				// Add vehicle to lot if valid
+				if (idTest && timeTest && licTest) {
+					lot.addVehicle(id, timePaid, lic);
+				} else {
+					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				}
 			}
 		});
 		
 		addTimeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Gather string fields
+				String sID = addTimeIDField.getText();
+				int id = Integer.parseInt(sID);
+				String sTime = addTimeTPField.getText();
+				int time = Integer.parseInt(sTime);
+				
+				// Check that entries are valid
+				boolean idTest = id > 0 && id <= LOT_SIZE;
+				boolean timeTest = time > 0;
+				
+				// Add time if valid
+				if (idTest && timeTest) {
+					lot.addTime(id, time);
+				} else {
+					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				}
 			}
 		});
 		
 		vacateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Gather string field
+				String sID = vacateIDField.getText();
+				int id = Integer.parseInt(sID);
+				
+				// Check that entry is valid
+				boolean idTest = id > 0 && id <= LOT_SIZE;
+				
+				// Vacate spot if valid
+				if (idTest) {
+					lot.vacate(id);
+				} else {
+					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				}
+				
 			}
 		});
 		
 		patrolButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Patrol lot
+				lot.patrol();
+				
+				// Update display tables
 			}
 		});
 		
 		adjustButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Gather string field
+				String sTime = addTimeTPField.getText();
+				int time = Integer.parseInt(sTime);
+				
+				// Check that entry is valid
+				boolean timeTest = time > 0;
+				
+				// Pass time if valid
+				if (timeTest) {
+					lot.passTime(time);
+				} else {
+					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				}
 			}
 		});
 		
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Save lot info
+				lot.save();
+				
+				// Print save info
 			}
 		});
 		
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Implement Later <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				
 			}
 		});
 		
