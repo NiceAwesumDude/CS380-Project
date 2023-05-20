@@ -1,7 +1,7 @@
 //CS380
 //ParkingLot class, to function as in in-between of the GUI and the spot class
 //Liam Barr
-//version 1.0
+//version 1.1
 //last edit on 5/9/2023
 
 import java.sql.*;

@@ -1,6 +1,6 @@
 // Parking Lot GUI Class V1.0
-// Contributors: Jacob Thornton
-// Last Modified: May 11, 2023
+// Contributors: Jacob Thornton, Liam Barr
+// Last Modified: May 19, 2023
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -237,8 +237,8 @@ public class ParkingLotGUI extends JFrame {
 				String lic = addCarLicenseField.getText();
 				
 				// Check that entries are valid
-				boolean idTest = id > 0 && id <= LOT_SIZE;
-				boolean timeTest = timePaid > 0;
+				boolean idTest = id >= 0 && id <= LOT_SIZE;
+				boolean timeTest = timePaid >= 0;
 				boolean licTest = lic.length() > 0 && lic.length() <= 7;
 				
 				// Add vehicle to lot if valid
@@ -306,7 +306,7 @@ public class ParkingLotGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				// Gather string field
-				String sTime = addTimeTPField.getText();
+				String sTime = adjustField.getText();
 				int time = Integer.parseInt(sTime);
 				
 				// Check that entry is valid

@@ -1,7 +1,7 @@
 //ParkingSpot class
 //CS 380
 //Liam Barr, Jesus Rodriguez
-//version 1.2
+//version 1.3
 //Last edit 5/18/2023
 
 public class ParkingSpot {
@@ -39,6 +39,7 @@ public class ParkingSpot {
       else {
          occupied = true;
       }
+      this.vehicle = new Car("", licensePlate);
    }
    
    /**

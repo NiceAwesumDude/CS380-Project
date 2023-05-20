@@ -1,13 +1,13 @@
 //Vehicle Class
 //CS 380
-//Jesus Rodriguez
-//Version 1.1
+//Jesus Rodriguez, Liam Barr
+//Version 1.2
 //Last edited 5/18/2023
 public abstract class Vehicle{
 
-   private String licensePlate;
-   private String make;
-   private int parkingSpot;
+   protected String licensePlate;
+   protected String make;
+   protected int parkingSpot;
     /**
       *
       *  Constructs a new Vehicle object with the specified license plate
@@ -15,11 +15,13 @@ public abstract class Vehicle{
       *  @param licensePlate the license plate of the vehicle
       *  
       */
+   /*
    public Vehicle(String make, String licensePlate){
       this.make = make;
       this.licensePlate = licensePlate;
    
    }
+   */
    
    /**
     * getter for make 
@@ -66,7 +68,7 @@ public abstract class Vehicle{
     * abstract method for parked spot 
     * @param parking spot
     */
-
+    
    public abstract int parkedSpot(int parkingSpot);
    
 
