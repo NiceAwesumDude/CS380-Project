@@ -22,17 +22,16 @@ public class ParkingSpot {
    
    //methods
    
-   
    /**
-   * Creates a new ParkingSpot
    * @param id The ID of the spot
-   * @param time the time alloted to the vehicle
-   * @param vehicle The licsence plate number of the vehicle
+   * @param tp The time paid for
+   * @param tl The time remaining
+   * @param licensePlate The liscence plate number of the vehicle
    */
-   ParkingSpot (int id, int time, String licensePlate) {
+   ParkingSpot(int id, int tp, int tl, String licensePlate){
       this.ID = id;
-      timePaid = time;
-      timeLeft = time;
+      timePaid = tp;
+      timeLeft = tl;
       if (licensePlate.isEmpty()){
          occupied = false;
       }
@@ -40,6 +39,18 @@ public class ParkingSpot {
          occupied = true;
       }
       this.vehicle = new Car("", licensePlate);
+   }
+   
+   
+   /**
+   * Creates a new ParkingSpot
+   * Kept for compatibility purposes
+   * @param id The ID of the spot
+   * @param time the time alloted to the vehicle
+   * @param licensePlate The licsence plate number of the vehicle
+   */
+   ParkingSpot (int id, int time, String licensePlate) {
+      this(id, time, time, licensePlate);
    }
    
    /**

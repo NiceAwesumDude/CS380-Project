@@ -216,4 +216,37 @@ public class ParkingLot {
          }
       }
    }
+   
+   /**
+   * Loads the data into the database
+   */
+   public void load(){
+      String q = "USE parkinglot;";
+      try{
+         Statement s = con.createStatement();
+         s.execute(q);
+      }
+      catch(Exception e){
+         System.out.println(e);
+         System.exit(0);
+      }
+      
+      q = "SELECT * FROM lot";
+      int i = 0;
+      
+      try {
+         Statement s = con.createStatement();
+         ResultSet r = s.executeQuery(q);
+         while (r.next()){
+            lot[i] = new ParkingSpot(r.getInt("id"), r.getInt("timepaid"),
+                  r.getInt("timeleft"), r.getString("lplatenum"));
+            
+            i++;
+         }
+      }
+      catch(Exception e){
+         System.out.println(e);
+         System.exit(0);
+      }
+   }
 }
