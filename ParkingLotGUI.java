@@ -1,6 +1,6 @@
-// Parking Lot GUI Class V1.0
+// Parking Lot GUI Class V1.1
 // Contributors: Jacob Thornton, Liam Barr
-// Last Modified: May 19, 2023
+// Last Modified: May 26, 2023
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -17,6 +18,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class ParkingLotGUI extends JFrame {
 
@@ -36,6 +38,13 @@ public class ParkingLotGUI extends JFrame {
 	private JButton adjustButton;
 	private JButton saveButton;
 	private JButton loadButton;
+	
+	private JTextArea allSpotsTable;
+	private JScrollPane allScroll;
+	private JTextArea openSpotsTable;
+	private JScrollPane openScroll;
+	private JTextArea occupiedSpotsTable;
+	private JScrollPane occupiedScroll;
 	
 	final int LOT_SIZE = 30;
 	final ParkingLot lot = new ParkingLot();
@@ -115,9 +124,15 @@ public class ParkingLotGUI extends JFrame {
 		loadButton = new JButton("Load Lot Data");
 		
 		// JTextAreas
-		JTextArea allSpotsTable = new JTextArea();
-		JTextArea openSpotsTable = new JTextArea();
-		JTextArea occupiedSpotsTable = new JTextArea();
+		allSpotsTable = new JTextArea();
+		allSpotsTable.setEditable(false);
+		allScroll = new JScrollPane(allSpotsTable); 
+		openSpotsTable = new JTextArea();
+		openSpotsTable.setEditable(false);
+		openScroll = new JScrollPane(openSpotsTable); 
+		occupiedSpotsTable = new JTextArea();
+		occupiedSpotsTable.setEditable(false);
+		occupiedScroll = new JScrollPane(occupiedSpotsTable); 
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -159,16 +174,16 @@ public class ParkingLotGUI extends JFrame {
 								.addComponent(addCarLicenseField, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(allSpotsTable, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+								.addComponent(allScroll, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 								.addComponent(allSpotsLabel))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(openSpotsTable, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+								.addComponent(openScroll, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 								.addComponent(openSpotsLabel))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(occupiedSpotsLabel)
-								.addComponent(occupiedSpotsTable, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(occupiedScroll, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(16, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -181,9 +196,9 @@ public class ParkingLotGUI extends JFrame {
 						.addComponent(occupiedSpotsLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(allSpotsTable, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-						.addComponent(openSpotsTable, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-						.addComponent(occupiedSpotsTable, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+						.addComponent(allScroll, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+						.addComponent(openScroll, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+						.addComponent(occupiedScroll, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(idLabel)
@@ -244,8 +259,9 @@ public class ParkingLotGUI extends JFrame {
 				// Add vehicle to lot if valid
 				if (idTest && timeTest && licTest) {
 					lot.addVehicle(id, timePaid, lic);
+					display();
 				} else {
-					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					invalid();
 				}
 			}
 		});
@@ -266,8 +282,9 @@ public class ParkingLotGUI extends JFrame {
 				// Add time if valid
 				if (idTest && timeTest) {
 					lot.addTime(id, time);
+					display();
 				} else {
-					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					invalid();
 				}
 			}
 		});
@@ -285,8 +302,9 @@ public class ParkingLotGUI extends JFrame {
 				// Vacate spot if valid
 				if (idTest) {
 					lot.vacate(id);
+					display();
 				} else {
-					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					invalid();
 				}
 				
 			}
@@ -294,11 +312,9 @@ public class ParkingLotGUI extends JFrame {
 		
 		patrolButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				// Patrol lot
 				lot.patrol();
-				
-				// Update display tables
+				display();
 			}
 		});
 		
@@ -307,7 +323,12 @@ public class ParkingLotGUI extends JFrame {
 				
 				// Gather string field
 				String sTime = adjustField.getText();
-				int time = Integer.parseInt(sTime);
+				int time = 0;
+				try {
+					time = Integer.parseInt(sTime);
+				} catch (Exception z) {
+					time = -1;
+				}
 				
 				// Check that entry is valid
 				boolean timeTest = time > 0;
@@ -315,29 +336,37 @@ public class ParkingLotGUI extends JFrame {
 				// Pass time if valid
 				if (timeTest) {
 					lot.passTime(time);
+					display();
 				} else {
-					// Print an error window stating "Invalid Input" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					invalid();
 				}
 			}
 		});
 		
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				// Save lot info
 				lot.save();
-				
-				// Print save info
 			}
 		});
 		
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// Implement Later <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-				
+				// Load lot info
+				lot.load();
+				display();
 			}
 		});
 		
+	}
+	
+	public void display() {
+		allSpotsTable.replaceRange(lot.toString(), 0, allSpotsTable.getText().length());
+		openSpotsTable.replaceRange(lot.getEmpty(), 0, openSpotsTable.getText().length());
+		occupiedSpotsTable.replaceRange(lot.getFull(), 0, occupiedSpotsTable.getText().length());
+	}
+	
+	public void invalid() {
+		JOptionPane.showMessageDialog(null, "Error: Invalid Inputs");
 	}
 }
