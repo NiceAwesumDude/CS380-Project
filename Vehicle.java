@@ -1,8 +1,8 @@
 //Vehicle Class
 //CS 380
 //Jesus Rodriguez, Liam Barr
-//Version 1.2
-//Last edited 5/23/2023
+//Version 1.3
+//Last edited 5/30/2023
 public abstract class Vehicle{
 
    private String licensePlate;
@@ -64,6 +64,6 @@ public abstract class Vehicle{
     */
    
    public String toString(){
-      return " Make of vehicle: " + this.make + " License Plate: " + this.licensePlate;
+      return " License Plate: " + this.licensePlate;
    }
 }
