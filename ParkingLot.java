@@ -1,8 +1,8 @@
 //CS380
 //ParkingLot class, to function as in in-between of the GUI and the spot class
 //Liam Barr
-//version 1.1
-//last edit on 5/9/2023
+//version 1.2
+//last edit on 5/30/2023
 
 import java.sql.*;
 
@@ -72,13 +72,13 @@ public class ParkingLot {
    * @param t The time paid for
    * @param v The vehicle, currently a plate num
    */
-   public void addVehicle(int id, int t, String v) {
+   public boolean addVehicle(int id, int t, String v) {
       if (lot[id].getOccupancy()) {
          System.out.println("Spot is already occupied");
+         return false;
       }
-      else{
-         lot[id] = new ParkingSpot(id, t, v);
-      }
+      lot[id] = new ParkingSpot(id, t, v);
+      return true;
    }
    
    /**
@@ -110,7 +110,7 @@ public class ParkingLot {
       String s = "";
       for (int i = 0; i < lot.length; i++) {
          if (lot[i].getOccupancy() == false) {
-            s = s + lot[i].toString() + "\n";
+            s = s + i + "\n";
          }
       }
       return s;

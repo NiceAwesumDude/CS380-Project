@@ -1,6 +1,6 @@
 // Parking Lot GUI Class V1.1
 // Contributors: Jacob Thornton, Liam Barr
-// Last Modified: May 26, 2023
+// Last Modified: May 30, 2023
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -256,9 +256,12 @@ public class ParkingLotGUI extends JFrame {
 				boolean timeTest = timePaid >= 0;
 				boolean licTest = lic.length() > 0 && lic.length() <= 7;
 				
+            //dummy variable to get this to work until fully implemented
+            boolean dummy;
+            
 				// Add vehicle to lot if valid
 				if (idTest && timeTest && licTest) {
-					lot.addVehicle(id, timePaid, lic);
+					dummy = lot.addVehicle(id, timePaid, lic);
 					display();
 				} else {
 					invalid();
