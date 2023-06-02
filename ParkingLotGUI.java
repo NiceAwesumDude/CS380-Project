@@ -1,6 +1,6 @@
-// Parking Lot GUI Class V1.1
+// Parking Lot GUI Class V1.2
 // Contributors: Jacob Thornton, Liam Barr
-// Last Modified: May 30, 2023
+// Last Modified: June 2, 2023
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -38,9 +38,6 @@ public class ParkingLotGUI extends JFrame {
 	private JButton adjustButton;
 	private JButton saveButton;
 	private JButton loadButton;
-	
-	private JTextArea allSpotsTable;
-	private JScrollPane allScroll;
 	private JTextArea openSpotsTable;
 	private JScrollPane openScroll;
 	private JTextArea occupiedSpotsTable;
@@ -82,158 +79,96 @@ public class ParkingLotGUI extends JFrame {
 		
 		setTitle("Parking Lot Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 540);
+		setBounds(100, 100, 340, 520);
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
-		// JLabels
-		JLabel allSpotsLabel = new JLabel("All Parking Spots");
-		JLabel openSpotsLabel = new JLabel("All Open Spots");
-		JLabel occupiedSpotsLabel = new JLabel("All Occupied Spots");
+		JLabel openSpotsLabel = new JLabel("Open Spots");
+		openSpotsLabel.setBounds(179, 19, 70, 14);
+		JLabel occupiedSpotsLabel = new JLabel("Occupied Spots");
+		occupiedSpotsLabel.setBounds(25, 19, 110, 14);
 		JLabel idLabel = new JLabel("Spot ID");
-		JLabel tpLabel = new JLabel("Time Purchased");
+		idLabel.setBounds(111, 255, 40, 14);
+		JLabel tpLabel = new JLabel("Time");
+		tpLabel.setBounds(170, 255, 40, 14);
 		JLabel licenseLabel = new JLabel("License #");
+		licenseLabel.setBounds(230, 255, 70, 14);
 		JLabel adjustLabel = new JLabel("Time to Adjust");
+		adjustLabel.setBounds(150, 386, 100, 14);
 		
 		// JTextFields
 		addCarIDField = new JTextField();
+		addCarIDField.setBounds(111, 275, 45, 20);
 		addCarIDField.setColumns(10);
 		addCarTPField = new JTextField();
+		addCarTPField.setBounds(164, 275, 45, 20);
 		addCarTPField.setColumns(10);
 		addCarLicenseField = new JTextField();
+		addCarLicenseField.setBounds(221, 275, 85, 20);
 		addCarLicenseField.setColumns(10);
 		vacateIDField = new JTextField();
+		vacateIDField.setBounds(111, 343, 45, 20);
 		vacateIDField.setColumns(10);
 		adjustField = new JTextField();
+		adjustField.setBounds(141, 411, 100, 20);
 		adjustField.setColumns(10);
 		addTimeIDField = new JTextField();
+		addTimeIDField.setBounds(111, 309, 45, 20);
 		addTimeIDField.setColumns(10);
 		addTimeTPField = new JTextField();
+		addTimeTPField.setBounds(164, 309, 45, 20);
 		addTimeTPField.setColumns(10);
 		
 		// JButtons
 		addCarButton = new JButton("Add Car");
+		addCarButton.setBounds(11, 274, 90, 23);
 		addTimeButton = new JButton("Add Time");
+		addTimeButton.setBounds(11, 308, 90, 23);
 		vacateButton = new JButton("Vacate");
+		vacateButton.setBounds(11, 342, 90, 23);
 		patrolButton = new JButton("Patrol Lot");
+		patrolButton.setBounds(11, 376, 120, 23);
 		adjustButton = new JButton("Adjust Clock");
+		adjustButton.setBounds(11, 410, 120, 23);
 		saveButton = new JButton("Save Lot Data");
+		saveButton.setBounds(11, 442, 140, 23);
 		loadButton = new JButton("Load Lot Data");
-		
-		// JTextAreas
-		allSpotsTable = new JTextArea();
-		allSpotsTable.setEditable(false);
-		allScroll = new JScrollPane(allSpotsTable); 
+		loadButton.setBounds(161, 442, 140, 23);
+		openScroll = new JScrollPane(); 
+		openScroll.setBounds(15, 39, 109, 205);
+		occupiedScroll = new JScrollPane();
+		occupiedScroll.setBounds(132, 39, 174, 205);
+		contentPane.setLayout(null);
+		contentPane.add(saveButton);
+		contentPane.add(adjustField);
+		contentPane.add(adjustButton);
+		contentPane.add(adjustLabel);
+		contentPane.add(patrolButton);
+		contentPane.add(openScroll);
 		openSpotsTable = new JTextArea();
+		openScroll.setViewportView(openSpotsTable);
 		openSpotsTable.setEditable(false);
-		openScroll = new JScrollPane(openSpotsTable); 
+		contentPane.add(occupiedScroll);
 		occupiedSpotsTable = new JTextArea();
+		occupiedScroll.setViewportView(occupiedSpotsTable);
 		occupiedSpotsTable.setEditable(false);
-		occupiedScroll = new JScrollPane(occupiedSpotsTable); 
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(20)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(saveButton, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(loadButton, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(adjustButton, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(adjustField, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(patrolButton, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(adjustLabel))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(addCarButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(vacateButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(addTimeButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(idLabel)
-								.addComponent(addTimeIDField, 0, 0, Short.MAX_VALUE)
-								.addComponent(addCarIDField, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-								.addComponent(vacateIDField, 0, 0, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(addTimeTPField, 0, 0, Short.MAX_VALUE)
-								.addComponent(addCarTPField, 0, 0, Short.MAX_VALUE)
-								.addComponent(tpLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(licenseLabel)
-								.addComponent(addCarLicenseField, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(allScroll, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-								.addComponent(allSpotsLabel))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(openScroll, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-								.addComponent(openSpotsLabel))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(occupiedSpotsLabel)
-								.addComponent(occupiedScroll, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(16, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(allSpotsLabel)
-						.addComponent(openSpotsLabel)
-						.addComponent(occupiedSpotsLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(allScroll, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-						.addComponent(openScroll, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-						.addComponent(occupiedScroll, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(idLabel)
-						.addComponent(tpLabel)
-						.addComponent(licenseLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(addCarButton)
-						.addComponent(addCarIDField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(addCarTPField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(addCarLicenseField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(addTimeButton)
-						.addComponent(addTimeIDField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(addTimeTPField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(vacateButton)
-						.addComponent(vacateIDField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(patrolButton)
-						.addComponent(adjustLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(adjustButton)
-						.addComponent(adjustField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(saveButton)
-						.addComponent(loadButton))
-					.addGap(106))
-		);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.add(vacateButton);
+		contentPane.add(vacateIDField);
+		contentPane.add(addTimeButton);
+		contentPane.add(addCarButton);
+		contentPane.add(addCarIDField);
+		contentPane.add(addCarTPField);
+		contentPane.add(idLabel);
+		contentPane.add(tpLabel);
+		contentPane.add(licenseLabel);
+		contentPane.add(addCarLicenseField);
+		contentPane.add(addTimeTPField);
+		contentPane.add(addTimeIDField);
+		contentPane.add(loadButton);
+		contentPane.add(occupiedSpotsLabel);
+		contentPane.add(openSpotsLabel);
 	}
 	
 	/**
@@ -252,19 +187,19 @@ public class ParkingLotGUI extends JFrame {
 				String lic = addCarLicenseField.getText();
 				
 				// Check that entries are valid
-				boolean idTest = id >= 0 && id <= LOT_SIZE;
+				boolean idTest = (id >= 0) && (id < LOT_SIZE);
 				boolean timeTest = timePaid >= 0;
 				boolean licTest = lic.length() > 0 && lic.length() <= 7;
-				
-            //dummy variable to get this to work until fully implemented
-            boolean dummy;
             
 				// Add vehicle to lot if valid
 				if (idTest && timeTest && licTest) {
-					dummy = lot.addVehicle(id, timePaid, lic);
+					boolean test = lot.addVehicle(id, timePaid, lic);
+					if (!test) {
+						JOptionPane.showMessageDialog(null, "Error: Spot Already Occupied");
+					}
 					display();
 				} else {
-					invalid();
+					JOptionPane.showMessageDialog(null, "Error: Invalid Inputs");
 				}
 			}
 		});
@@ -279,15 +214,18 @@ public class ParkingLotGUI extends JFrame {
 				int time = Integer.parseInt(sTime);
 				
 				// Check that entries are valid
-				boolean idTest = id > 0 && id <= LOT_SIZE;
+				boolean idTest = (id > 0) && (id < LOT_SIZE);
 				boolean timeTest = time > 0;
 				
 				// Add time if valid
 				if (idTest && timeTest) {
-					lot.addTime(id, time);
+					boolean test = lot.addTime(id, time);
+					if (!test) {
+						JOptionPane.showMessageDialog(null, "Error: Spot not Occupied");
+					}
 					display();
 				} else {
-					invalid();
+					JOptionPane.showMessageDialog(null, "Error: Invalid Inputs");
 				}
 			}
 		});
@@ -300,14 +238,17 @@ public class ParkingLotGUI extends JFrame {
 				int id = Integer.parseInt(sID);
 				
 				// Check that entry is valid
-				boolean idTest = id > 0 && id <= LOT_SIZE;
+				boolean idTest = (id > 0) && (id < LOT_SIZE);
 				
 				// Vacate spot if valid
 				if (idTest) {
-					lot.vacate(id);
+					boolean test = lot.vacate(id);
+					if (!test) {
+						JOptionPane.showMessageDialog(null, "Error: Spot already Vacant");
+					}
 					display();
 				} else {
-					invalid();
+					JOptionPane.showMessageDialog(null, "Error: Invalid Spot Input");
 				}
 				
 			}
@@ -341,7 +282,7 @@ public class ParkingLotGUI extends JFrame {
 					lot.passTime(time);
 					display();
 				} else {
-					invalid();
+					JOptionPane.showMessageDialog(null, "Error: Invalid Time Input");
 				}
 			}
 		});
@@ -364,12 +305,7 @@ public class ParkingLotGUI extends JFrame {
 	}
 	
 	public void display() {
-		allSpotsTable.replaceRange(lot.toString(), 0, allSpotsTable.getText().length());
 		openSpotsTable.replaceRange(lot.getEmpty(), 0, openSpotsTable.getText().length());
 		occupiedSpotsTable.replaceRange(lot.getFull(), 0, occupiedSpotsTable.getText().length());
-	}
-	
-	public void invalid() {
-		JOptionPane.showMessageDialog(null, "Error: Invalid Inputs");
 	}
 }

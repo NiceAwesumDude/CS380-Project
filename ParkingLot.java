@@ -1,8 +1,8 @@
 //CS380
 //ParkingLot class, to function as in in-between of the GUI and the spot class
-//Liam Barr
-//version 1.2
-//last edit on 5/30/2023
+//Liam Barr, Jacob Thornton
+//version 1.3
+//last edit on 6/2/2023
 
 import java.sql.*;
 
@@ -60,9 +60,14 @@ public class ParkingLot {
    /**
    * Vacates a spot
    * @param id The spot to vacate
+   * @return Boolean for operation completion
    */
-   public void vacate(int id) {
-      lot[id] = new ParkingSpot(id);
+   public boolean vacate(int id) {
+	   if (lot[id].getOccupancy()) {
+		   lot[id] = new ParkingSpot(id);
+		   return true;
+	   }
+       return false;
    }
    
    /**
@@ -71,6 +76,7 @@ public class ParkingLot {
    * @param id The spot to park in
    * @param t The time paid for
    * @param v The vehicle, currently a plate num
+   * @return Boolean for operation completion
    */
    public boolean addVehicle(int id, int t, String v) {
       if (lot[id].getOccupancy()) {
@@ -85,9 +91,14 @@ public class ParkingLot {
    * Adds time to a particular spot
    * @param id The ID of the spot
    * @param t The amount of time to add
+   * @return Boolean for operation completion
    */
-   public void addTime (int id, int t) {
-      lot[id].addTime(t);
+   public boolean addTime (int id, int t) {
+	   if (lot[id].getOccupancy()) {
+		   lot[id].addTime(t);
+	       return true;
+	   }
+	   return false;
    }
    
    /**
@@ -95,8 +106,8 @@ public class ParkingLot {
    * @return The lot's string
    */
    public String toString() {
-      String s = lot[0].toString();
-      for (int i = 1; i <lot.length; i++) {
+      String s = "Spot, License, Time Bought, Time Left";
+      for (int i = 0; i <lot.length; i++) {
          s = s + "\n" + lot[i].toString();
       }
       return s;
@@ -107,10 +118,10 @@ public class ParkingLot {
    * @return A list of empty spots
    */
    public String getEmpty() {
-      String s = "";
+      String s = "Spot ID";
       for (int i = 0; i < lot.length; i++) {
          if (lot[i].getOccupancy() == false) {
-            s = s + i + "\n";
+            s = s + "\n" + i;
          }
       }
       return s;
@@ -121,10 +132,10 @@ public class ParkingLot {
    * @return A list of occupied spots
    */
    public String getFull() {
-      String s = "";
+      String s = "Spot ID, License, Time Left";
       for (int i = 0; i < lot.length; i++) {
          if (lot[i].getOccupancy()) {
-            s = s + lot[i].toString() + "\n";
+            s = s + "\n" + lot[i].toString();
          }
       }
       return s;
@@ -134,8 +145,8 @@ public class ParkingLot {
    */
    private void connect(){
 		String url = "jdbc:mysql://localhost:3306";
-		String userName = "root";
-		String pass = "@1Lumlum";
+		String userName = "ThorntonRo";
+		String pass = "password";
 		
 		try {
 			con = DriverManager.getConnection(url, userName, pass);
