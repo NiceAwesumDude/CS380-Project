@@ -85,10 +85,10 @@ public class ParkingLotGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		JLabel openSpotsLabel = new JLabel("Open Spots");
-		openSpotsLabel.setBounds(179, 19, 70, 14);
 		JLabel occupiedSpotsLabel = new JLabel("Occupied Spots");
-		occupiedSpotsLabel.setBounds(25, 19, 110, 14);
+		occupiedSpotsLabel.setBounds(175, 19, 120, 14);
+		JLabel openSpotsLabel = new JLabel("Open Spots");
+		openSpotsLabel.setBounds(40, 19, 70, 14);
 		JLabel idLabel = new JLabel("Spot ID");
 		idLabel.setBounds(111, 255, 40, 14);
 		JLabel tpLabel = new JLabel("Time");
