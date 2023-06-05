@@ -1,8 +1,8 @@
 //ParkingSpot class
 //CS 380
 //Liam Barr, Jesus Rodriguez, Jacob Thornton
-//version 1.5
-//Last edit 6/2/2023
+//version 1.6
+//Last edit 6/5/2023
 
 public class ParkingSpot {
  
@@ -32,7 +32,7 @@ public class ParkingSpot {
     this.ID = id;
     timePaid = tp;
     timeLeft = tl;
-    if (licensePlate.isEmpty()){
+    if (licensePlate.isEmpty() || licensePlate.equals("Empty")){
        occupied = false;
     }
     else {

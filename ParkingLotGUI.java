@@ -1,6 +1,6 @@
-// Parking Lot GUI Class V1.2
+// Parking Lot GUI Class V1.3
 // Contributors: Jacob Thornton, Liam Barr
-// Last Modified: June 2, 2023
+// Last Modified: June 5, 2023
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -187,8 +187,8 @@ public class ParkingLotGUI extends JFrame {
 				String lic = addCarLicenseField.getText();
 				
 				// Check that entries are valid
-				boolean idTest = (id >= 0) && (id < LOT_SIZE);
-				boolean timeTest = timePaid >= 0;
+				boolean idTest = (id >= 0) && (id < LOT_SIZE) && (sID.length() > 0);
+				boolean timeTest = (timePaid >= 0) && (sTimePaid.length() > 0);
 				boolean licTest = lic.length() > 0 && lic.length() <= 7;
             
 				// Add vehicle to lot if valid
@@ -214,8 +214,8 @@ public class ParkingLotGUI extends JFrame {
 				int time = Integer.parseInt(sTime);
 				
 				// Check that entries are valid
-				boolean idTest = (id > 0) && (id < LOT_SIZE);
-				boolean timeTest = time > 0;
+				boolean idTest = (id > 0) && (id < LOT_SIZE) && (sID.length() > 0);
+				boolean timeTest = (time > 0) && (sTime.length() > 0);
 				
 				// Add time if valid
 				if (idTest && timeTest) {
@@ -238,7 +238,7 @@ public class ParkingLotGUI extends JFrame {
 				int id = Integer.parseInt(sID);
 				
 				// Check that entry is valid
-				boolean idTest = (id > 0) && (id < LOT_SIZE);
+				boolean idTest = (id > 0) && (id < LOT_SIZE) && (sID.length() > 0);
 				
 				// Vacate spot if valid
 				if (idTest) {
@@ -275,7 +275,7 @@ public class ParkingLotGUI extends JFrame {
 				}
 				
 				// Check that entry is valid
-				boolean timeTest = time > 0;
+				boolean timeTest = (time > 0) && (sTime.length() > 0);
 				
 				// Pass time if valid
 				if (timeTest) {
