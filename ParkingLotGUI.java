@@ -1,4 +1,4 @@
-// Parking Lot GUI Class V1.3
+// Parking Lot GUI Class V1.4
 // Contributors: Jacob Thornton, Liam Barr
 // Last Modified: June 5, 2023
 
@@ -179,17 +179,31 @@ public class ParkingLotGUI extends JFrame {
 		addCarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				// Declare tests and ints
+				boolean idTest;
+				boolean timeTest;
+				boolean licTest;
+				int id = -1;
+				int timePaid = -1;
+				
 				// Gather string fields
 				String sID = addCarIDField.getText();
-				int id = Integer.parseInt(sID);
 				String sTimePaid = addCarTPField.getText();
-				int timePaid = Integer.parseInt(sTimePaid);
 				String lic = addCarLicenseField.getText();
 				
+				// Error test
+				try {
+					id = Integer.parseInt(sID);
+					timePaid = Integer.parseInt(sTimePaid);
+				} catch (Exception b) {
+					idTest = false;
+					timeTest = false;
+				}
+				
 				// Check that entries are valid
-				boolean idTest = (id >= 0) && (id < LOT_SIZE) && (sID.length() > 0);
-				boolean timeTest = (timePaid >= 0) && (sTimePaid.length() > 0);
-				boolean licTest = lic.length() > 0 && lic.length() <= 7;
+				idTest = (id >= 0) && (id < LOT_SIZE) && (sID.length() > 0);
+				timeTest = (timePaid >= 0) && (sTimePaid.length() > 0);
+				licTest = lic.length() > 0 && lic.length() <= 7;
             
 				// Add vehicle to lot if valid
 				if (idTest && timeTest && licTest) {
@@ -207,15 +221,28 @@ public class ParkingLotGUI extends JFrame {
 		addTimeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				// Declare tests and ints
+				boolean idTest;
+				boolean timeTest;
+				int id = -1;
+				int time = -1;
+				
 				// Gather string fields
 				String sID = addTimeIDField.getText();
-				int id = Integer.parseInt(sID);
 				String sTime = addTimeTPField.getText();
-				int time = Integer.parseInt(sTime);
+				
+				// Error test
+				try {
+					id = Integer.parseInt(sID);
+					time = Integer.parseInt(sTime);
+				} catch (Exception b) {
+					idTest = false;
+					timeTest = false;
+				}
 				
 				// Check that entries are valid
-				boolean idTest = (id > 0) && (id < LOT_SIZE) && (sID.length() > 0);
-				boolean timeTest = (time > 0) && (sTime.length() > 0);
+				idTest = (id >= 0) && (id < LOT_SIZE) && (sID.length() > 0);
+				timeTest = (time > 0) && (sTime.length() > 0);
 				
 				// Add time if valid
 				if (idTest && timeTest) {
@@ -233,12 +260,22 @@ public class ParkingLotGUI extends JFrame {
 		vacateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				// Declare tests and ints
+				boolean idTest;
+				int id = -1;
+				
 				// Gather string field
 				String sID = vacateIDField.getText();
-				int id = Integer.parseInt(sID);
+				
+				// Error test
+				try {
+					id = Integer.parseInt(sID);
+				} catch (Exception c) {
+					idTest = false;
+				}
 				
 				// Check that entry is valid
-				boolean idTest = (id > 0) && (id < LOT_SIZE) && (sID.length() > 0);
+				idTest = (id >= 0) && (id < LOT_SIZE) && (sID.length() > 0);
 				
 				// Vacate spot if valid
 				if (idTest) {
@@ -265,17 +302,22 @@ public class ParkingLotGUI extends JFrame {
 		adjustButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				// Declare test
+				boolean timeTest;
+				int time = -1;
+				
 				// Gather string field
 				String sTime = adjustField.getText();
-				int time = 0;
+				
+				// Error test
 				try {
 					time = Integer.parseInt(sTime);
 				} catch (Exception z) {
-					time = -1;
+					timeTest = false;
 				}
 				
 				// Check that entry is valid
-				boolean timeTest = (time > 0) && (sTime.length() > 0);
+				timeTest = (time > 0) && (sTime.length() > 0);
 				
 				// Pass time if valid
 				if (timeTest) {
