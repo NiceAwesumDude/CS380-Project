@@ -145,8 +145,8 @@ public class ParkingLot {
    */
    private void connect(){
 		String url = "jdbc:mysql://localhost:3306";
-		String userName = "ThorntonRo";
-		String pass = "password";
+		String userName = "root";
+		String pass = "@1Lumlum";
 		
 		try {
 			con = DriverManager.getConnection(url, userName, pass);

@@ -90,7 +90,7 @@ public class ParkingLotGUI extends JFrame {
 		JLabel openSpotsLabel = new JLabel("Open Spots");
 		openSpotsLabel.setBounds(40, 19, 70, 14);
 		JLabel idLabel = new JLabel("Spot ID");
-		idLabel.setBounds(111, 255, 40, 14);
+		idLabel.setBounds(111, 255, 50, 14);
 		JLabel tpLabel = new JLabel("Time");
 		tpLabel.setBounds(170, 255, 40, 14);
 		JLabel licenseLabel = new JLabel("License #");
